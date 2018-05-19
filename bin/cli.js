@@ -9,19 +9,16 @@ let cloudinaryConfig
 try {
   cloudinaryConfig = require(CLOUDINARY_CONFIG_FILE)
 
-  require('./configure')
-  require('./delete')
-  require('./get')
-  require('./upload')
+  require('../lib/configure')
+  require('../lib/delete')
+  require('../lib/get')
+  require('../lib/upload')
 
   yargs
     .help()
     .argv
 
 } catch (err) {
-  console.error('Configuration required.')
-  console.error(`Add configuration here: ${CLOUDINARY_CONFIG_FILE}`)
-
   let baseConfig = {}
 
   for (let key of CONFIG_KEYS) {
@@ -30,8 +27,10 @@ try {
 
   baseConfig = JSON.stringify(baseConfig, null, 2)
 
+  console.error('Configuration required.')
+  console.error(`Add configuration here: ${CLOUDINARY_CONFIG_FILE}`)
+
   fs.writeFileSync(CLOUDINARY_CONFIG_FILE, baseConfig, err => {
-    console.error(err)
     if (err) throw err
     process.exit(1)
   })
