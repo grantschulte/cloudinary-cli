@@ -1,13 +1,11 @@
 #! /usr/bin/env node
 
-const yargs = require('yargs')
 const fs = require('fs')
+const yargs = require('yargs')
 const { CLOUDINARY_CONFIG_FILE, CONFIG_KEYS } = require('../config')
 
-let cloudinaryConfig
-
 try {
-  cloudinaryConfig = require(CLOUDINARY_CONFIG_FILE)
+  const file = fs.readFileSync(CLOUDINARY_CONFIG_FILE, 'utf8')
 
   require('../lib/configure')
   require('../lib/delete')
@@ -19,6 +17,8 @@ try {
     .argv
 
 } catch (err) {
+  console.log('Creating config file...')
+
   let baseConfig = {}
 
   for (let key of CONFIG_KEYS) {
@@ -27,11 +27,7 @@ try {
 
   baseConfig = JSON.stringify(baseConfig, null, 2)
 
-  console.error('Configuration required.')
-  console.error(`Add configuration here: ${CLOUDINARY_CONFIG_FILE}`)
+  fs.writeFileSync(CLOUDINARY_CONFIG_FILE, baseConfig)
 
-  fs.writeFileSync(CLOUDINARY_CONFIG_FILE, baseConfig, err => {
-    if (err) throw err
-    process.exit(1)
-  })
+  console.log(`Config file created. Fill in here: ${CLOUDINARY_CONFIG_FILE}`)
 }

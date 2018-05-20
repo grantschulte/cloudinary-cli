@@ -1,7 +1,7 @@
 {
-  "name": "cloudinary-cli",
+  "name": "@avantgrant/cloudinary-cli",
   "version": "1.0.0",
-  "description": "Cloudinary utilities",
+  "description": "A cloudinary command line utility",
   "main": "index.js",
   "dependencies": {
     "cloudinary": "1.11.0",
