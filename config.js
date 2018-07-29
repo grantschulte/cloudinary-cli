@@ -9,11 +9,3 @@ exports.CONFIG_KEYS = [
   'apiKey',
   'secretKey'
 ]
-
-exports.CISCO_IMAGE_FOLDER_NAME = 'thumbs'
-exports.CISCO_IMAGE_TYPE_MAP = {
-  thumbnail: 'thumb',
-  boxArt: 'box_art',
-  masthead: 'masthead',
-  large: 'lg'
-}
